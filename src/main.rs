@@ -27,9 +27,11 @@ fn on_activate(application: &Application) {
             .build();
 
         let entry = entry.clone();
-        yes_button.connect_clicked(move |_| println!("clicou em sim {}", entry.text()));
+        yes_button.connect_clicked(move |_| {
+            read_dir_recursive(&entry.text());
+            println!("clicou em sim {}", entry.text());
+        });
         app_box.append(&yes_button);
-
     }
     {
         let no_button = gtk::Button::builder()
@@ -39,7 +41,10 @@ fn on_activate(application: &Application) {
             .build();
 
         let entry = entry.clone();
-        no_button.connect_clicked(move |_| println!("clicou em sim {}", entry.text()));
+        no_button.connect_clicked(move |_| {
+            read_dir_recursive(&entry.text());
+            println!("clicou em sim {}", entry.text());
+        });
         app_box.append(&no_button);
     }
 

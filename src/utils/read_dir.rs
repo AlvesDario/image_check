@@ -1,13 +1,17 @@
 use std::fs;
 
-pub fn read_dir_recursive(path: &str) -> Option<bool> {
-    let dir_files = fs::read_dir(path).ok()?;
-    
-    for dir_entry in dir_files {
+pub fn read_dir_recursive(path: &str) -> Vec<String> {
+    let dir_files = fs::read_dir(path);
+    if dir_files.is_err() {
+        println!("invalid path");
+        return Vec::new();
+    }
+
+    for dir_entry in dir_files.unwrap() {
         match dir_entry {
             Ok(entry) => {
                 let is_directory = entry.path().is_dir();
-                let child_path = entry.path().as_os_str().to_str()?.to_owned();
+                let child_path = entry.path().as_os_str().to_str().unwrap().to_owned();
         
                 match is_directory {
                     true => {
@@ -21,5 +25,5 @@ pub fn read_dir_recursive(path: &str) -> Option<bool> {
             Err(_) => (),
         }
     }
-    return Some(true);
+    return Vec::new();
 }
