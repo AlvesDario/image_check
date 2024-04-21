@@ -28,8 +28,8 @@ fn on_activate(application: &Application) {
 
         let entry = entry.clone();
         yes_button.connect_clicked(move |_| {
-            read_dir_recursive(&entry.text());
             println!("clicou em sim {}", entry.text());
+            println!("[\n\t\"{}\"\n]", read_dir_recursive(&entry.text()).join("\",\n\t\""));
         });
         app_box.append(&yes_button);
     }
@@ -42,8 +42,8 @@ fn on_activate(application: &Application) {
 
         let entry = entry.clone();
         no_button.connect_clicked(move |_| {
-            read_dir_recursive(&entry.text());
             println!("clicou em sim {}", entry.text());
+            read_dir_recursive(&entry.text());
         });
         app_box.append(&no_button);
     }
