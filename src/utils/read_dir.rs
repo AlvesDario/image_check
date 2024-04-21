@@ -31,3 +31,7 @@ pub fn read_dir_recursive(path: &str) -> Vec<String> {
     }
     return res;
 }
+
+pub fn to_json(dir_files: Vec<String>) {
+    println!("[\n\t\"{}\"\n]", dir_files.join("\",\n\t\""));
+}

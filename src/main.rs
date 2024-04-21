@@ -1,9 +1,10 @@
 use gtk::{prelude::*, Application, ApplicationWindow};
 use crate::utils::{read_dir::read_dir_recursive, delete_file::delete_file};
+use crate::components::file_list;
 
 mod counter_app;
 mod utils;
-
+mod components;
 
 // When the application is launched…
 fn on_activate(application: &Application) {
@@ -27,9 +28,11 @@ fn on_activate(application: &Application) {
             .build();
 
         let entry = entry.clone();
+        let box_clone = app_box.clone();
         yes_button.connect_clicked(move |_| {
             println!("clicou em sim {}", entry.text());
-            println!("[\n\t\"{}\"\n]", read_dir_recursive(&entry.text()).join("\",\n\t\""));
+            let label_list = file_list::FileList::new(read_dir_recursive(&entry.text()));
+            box_clone.append(&label_list.build_widget());
         });
         app_box.append(&yes_button);
     }
@@ -60,8 +63,6 @@ fn on_activate(application: &Application) {
 
 
 fn main() {
-    // read_dir_recursive("./src");
-    // delete_file("./aaa");
     // Create a new application with the builder pattern
     let app = Application::builder()
         .application_id("com.github.gtk-rs.examples.basic")
